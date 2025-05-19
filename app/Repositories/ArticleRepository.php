@@ -13,7 +13,7 @@ class ArticleRepository
         // return Article::with('category')->paginate(3);    // paginated
     }
 
-    public function find(int $id): Article
+    public function find(int $id): ?Article
     {
         return Article::with('category')->find($id);
     }

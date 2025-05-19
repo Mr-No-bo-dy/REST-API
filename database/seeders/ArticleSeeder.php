@@ -27,7 +27,7 @@ class ArticleSeeder extends Seeder
         Article::create([
             'title'        => 'PHP 8.3: що нового?',
             'description'      => 'Нове в синтаксисі та продуктивності...',
-            'author'       => 'Ivan Petrenko',
+            'author'       => 'Oleksandr',
             'published_at' => now()->subDay(),
             'category_id'  => $categoryId
         ]);
