@@ -1,11 +1,11 @@
-# News Catalog API (Laravel)
+# Articles Catalog API (Laravel)
 
-Цей проєкт є RESTfull API для управління каталогом новин, розроблений з використанням Laravel. 
-API дозволяє створювати, переглядати, оновлювати та видаляти новини. 
+Цей проєкт є RESTfull API для управління каталогом статтей, розроблений з використанням Laravel. 
+API дозволяє створювати, переглядати, оновлювати та видаляти статті. 
 Реалізовано принципи чистої архітектури: контролери, сервіси, репозиторії, валідація та API-ресурси.
 
 ## Можливості
-- CRUD операції для новин
+- CRUD операції для статтей
 - Валідація вхідних запитів
 - Структуровані JSON-відповіді через API Resources
 - Підтримка пагінації та сортування
@@ -23,16 +23,15 @@ API дозволяє створювати, переглядати, оновлю�
 ## Налаштування .env
 ```
 DB_CONNECTION=sqlite
-DB_DATABASE=${DB_DATABASE_PATH}/database.sqlite
-DB_DATABASE_PATH=/absolute/path/to/your/project/database
+DB_DATABASE=database/database.sqlite
 ```
 
 ## Встановлення
 
 ```
-git clone https://github.com/yourname/news-api.git
+git clone https://github.com/Mr-No-bo-dy/REST-API.git
 
-cd news-api
+cd REST-API
 
 composer install
 
@@ -40,7 +39,8 @@ cp .env.example .env
 
 php artisan key:generate
 
-touch database/database.sqlite
+touch database/database.sqlite (Linux/MacOS)
+New-Item -ItemType File -Path database/database.sqlite (Windows)
 
 php artisan migrate
 
@@ -50,22 +50,22 @@ php artisan serve
 
 
 ## API Endpoint-и
-| Метод  | Endpoint       | Опис                 |
-| ------ | -------------- | -------------------- |
-| GET    | /api/news      | Отримати всі новини  |
-| GET    | /api/news/{id} | Отримати одну новину |
-| POST   | /api/news      | Створити новину      |
-| PUT    | /api/news/{id} | Оновити новину       |
-| DELETE | /api/news/{id} | Видалити новину      |
+| Метод  | Endpoint           | Опис                 |
+| ------ | ------------------ | -------------------- |
+| GET    | /api/articles      | Отримати всі статті  |
+| GET    | /api/articles/{id} | Отримати одну статтю |
+| POST   | /api/articles      | Створити статтю      |
+| PUT    | /api/articles/{id} | Оновити статтю       |
+| DELETE | /api/articles/{id} | Видалити статтю      |
 
 
-## Приклад запиту (POST /api/news)
+## Приклад запиту (POST /api/articles)
 
 ```
 {
   "title": "Laravel 11 Released",
   "content": "Нові можливості в Laravel 11...",
-  "author": "Olena Kozak",
+  "author": "Mr-No-bo-dy",
   "published_at": "2025-05-13T12:00:00"
 }
 
