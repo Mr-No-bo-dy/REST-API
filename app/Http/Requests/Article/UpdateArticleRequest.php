@@ -4,7 +4,18 @@ namespace App\Http\Requests\Article;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Schema(
+ *     schema="UpdateArticleRequest",
+ *     @OA\Property(property="title", type="string", maxLength=255, example="Breaking News Title"),
+ *     @OA\Property(property="description", type="string", maxLength=1024, example="This is the content of the news."),
+ *     @OA\Property(property="category_id", type="integer", example=1),
+ *     @OA\Property(property="author", type="string", maxLength=255, example="John Doe"),
+ *     @OA\Property(property="published_at", type="string", format="date", example="2025-05-19")
+ * )
+ */
 class UpdateArticleRequest extends FormRequest
 {
     /**
