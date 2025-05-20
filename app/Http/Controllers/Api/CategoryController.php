@@ -6,13 +6,35 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
 use App\Repositories\CategoryRepository;
 use Illuminate\Http\JsonResponse;
+use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Tag(
+ *     name="Categories",
+ *     description="Operations with Categories"
+ * )
+ */
 class CategoryController extends Controller
 {
     public function __construct(private readonly CategoryRepository $repository)
     {
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/v1/categories",
+     *     tags={"Categories"},
+     *     summary="Get all categories",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Get list of categories",
+     *         @OA\JsonContent(
+     *              type="array",
+     *              @OA\Items(ref="#/components/schemas/CategoryResource")
+     *         )
+     *     )
+     * )
+     */
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         // return response()->json($this->repository->all());    // return all data
@@ -21,6 +43,26 @@ class CategoryController extends Controller
         return CategoryResource::collection($categories);   // return chosen (in Resource) data
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/v1/categories/{id}",
+     *     tags={"Categories"},
+     *     summary="Get one Category",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="Category's ID",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Get one Category by it's ID",
+     *         @OA\JsonContent(ref="#/components/schemas/CategoryResource")
+     *     ),
+     *     @OA\Response(response=404, description="Category not found")
+     * )
+     */
     public function show($id): CategoryResource|JsonResponse
     {
         $category = $this->repository->find($id);

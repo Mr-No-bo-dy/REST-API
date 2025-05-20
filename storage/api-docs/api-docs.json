@@ -2,13 +2,13 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Test Laravel REST API",
-        "description": "Опис вашого API",
-        "version": "0.1.0"
+        "description": "Це тестовий проєкт REST API на Laravel. Документація реалізована за допомогою пакета darkaonline/l5-swagger.",
+        "version": "0.2.0"
     },
     "servers": [
         {
             "url": "http://127.0.0.1:8000",
-            "description": "Основний сервер"
+            "description": "Локальний сервер"
         }
     ],
     "paths": {
@@ -171,6 +171,65 @@
                     }
                 }
             }
+        },
+        "/api/v1/categories": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get all categories",
+                "operationId": "52c3c8d702572c2b4347b0ecf7573e54",
+                "responses": {
+                    "200": {
+                        "description": "Get list of categories",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/CategoryResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/categories/{id}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get one Category",
+                "operationId": "11d2d45398d538612b1a4156d210652e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category's ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get one Category by it's ID",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CategoryResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -280,6 +339,79 @@
                     }
                 },
                 "type": "object"
+            },
+            "CategoryResource": {
+                "title": "Category Resource",
+                "properties": {
+                    "name": {
+                        "description": "Tip:\nindex array -> array\nassociative array -> object",
+                        "type": "string",
+                        "example": "Technology"
+                    },
+                    "sort_order": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "show_in_main_menu": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "parent": {
+                        "properties": {
+                            "id": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "Category name"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "children": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "example": "Category name"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "articles": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "title": {
+                                    "type": "string",
+                                    "example": "Article title"
+                                },
+                                "author": {
+                                    "type": "string",
+                                    "example": "Olaksandr"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "published_at": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-05-19"
+                    }
+                },
+                "type": "object"
             }
         }
     },
@@ -287,6 +419,10 @@
         {
             "name": "Articles",
             "description": "Operations with Articles"
+        },
+        {
+            "name": "Categories",
+            "description": "Operations with Categories"
         }
     ]
 }

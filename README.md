@@ -49,13 +49,15 @@ php artisan serve
 
 
 ## API Endpoint-и
-| Метод       | Endpoint           | Опис                 |
-|-------------| ------------------ | -------------------- |
-| GET         | /api/articles      | Отримати всі статті  |
-| GET         | /api/articles/{id} | Отримати одну статтю |
-| POST        | /api/articles      | Створити статтю      |
-| PUT / PATCH | /api/articles/{id} | Оновити статтю       |
-| DELETE      | /api/articles/{id} | Видалити статтю      |
+| Метод       | Endpoint             | Опис                    |
+|-------------|----------------------|-------------------------|
+| GET         | /api/categories      | Отримати всі категорії  |
+| GET         | /api/categories/{id} | Отримати одну категорію |
+| GET         | /api/articles        | Отримати всі статті     |
+| GET         | /api/articles/{id}   | Отримати одну статтю    |
+| POST        | /api/articles        | Створити статтю         |
+| PUT / PATCH | /api/articles/{id}   | Оновити статтю          |
+| DELETE      | /api/articles/{id}   | Видалити статтю         |
 
 
 ## Приклад запиту (POST /api/articles)

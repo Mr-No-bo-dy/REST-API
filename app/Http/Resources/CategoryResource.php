@@ -5,9 +5,50 @@ namespace App\Http\Resources;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use OpenApi\Annotations as OA;
 
 class CategoryResource extends JsonResource
 {
+    /**
+     * Tip:
+     * index array -> array
+     * associative array -> object
+     *
+     * @OA\Schema(
+     *     schema="CategoryResource",
+     *     type="object",
+     *     title="Category Resource",
+     *     @OA\Property(property="name", type="string", example="Technology"),
+     *     @OA\Property(property="sort_order", type="integer", example=1),
+     *     @OA\Property(property="show_in_main_menu", type="boolean", example=true),
+     *     @OA\Property(
+     *          property="parent",
+     *          type="object",
+     *          @OA\Property(property="id", type="integer", example=1),
+     *          @OA\Property(property="name", type="string", example="Category name"),
+     *     ),
+     *     @OA\Property(
+     *          property="children",
+     *          type="array",
+     *          @OA\Items(
+     *              type="object",
+     *              @OA\Property(property="id", type="integer", example=1),
+     *              @OA\Property(property="name", type="string", example="Category name"),
+     *          ),
+     *     ),
+     *      @OA\Property(
+     *           property="articles",
+     *           type="array",
+     *           @OA\Items(
+     *               type="object",
+     *               @OA\Property(property="id", type="integer", example=1),
+     *               @OA\Property(property="title", type="string", example="Article title"),
+     *               @OA\Property(property="author", type="string", example="Olaksandr"),
+     *           ),
+     *      ),
+     *     @OA\Property(property="published_at", type="string", format="date", example="2025-05-19"),
+     * ),
+     */
     public function toArray(Request $request): array
     {
         /** @var Category $this */
@@ -15,7 +56,7 @@ class CategoryResource extends JsonResource
         return [
             'name' => $this->name,
             'sort_order' => $this->sort_order,
-            'show_in_main_menu' => $this->show_in_main_menu ? 'yes' : 'no',
+            'show_in_main_menu' => (bool)$this->show_in_main_menu,
             'parent' => $this->parent_id
                 ? [
                     'id' => $this->parent->id,
@@ -41,7 +82,7 @@ class CategoryResource extends JsonResource
 //        return [
 //            'name' => $this->name,
 //            'sort_order' => $this->sort_order,
-//            'show_in_main_menu' => $this->show_in_main_menu ? 'yes' : 'no',
+//            'show_in_main_menu' => (bool)$this->show_in_main_menu,
 //            ...($this->parent_id ? [
 //                'parent' => [
 //                    'id' => $this->parent->id,
