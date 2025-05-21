@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Middleware\ApiTokenMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\CategoryController;
 
-Route::prefix('v1')->group(function () {
+Route::prefix('v1')
+    ->middleware(ApiTokenMiddleware::class)
+    ->group(function () {
     // Articles
     Route::apiResource('articles', ArticleController::class);
 

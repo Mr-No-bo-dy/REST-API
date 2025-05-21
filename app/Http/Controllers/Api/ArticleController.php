@@ -15,8 +15,10 @@ use OpenApi\Annotations as OA;
 /**
  * @OA\Tag(
  *     name="Articles",
- *     description="Operations with Articles"
- * )
+ *     description="Operations with Articles",
+ * ),
+ *
+ * @OA\SecurityRequirement(name="bearerAuth"),
  */
 class ArticleController extends Controller
 {
@@ -29,15 +31,16 @@ class ArticleController extends Controller
      *     path="/api/v1/articles",
      *     tags={"Articles"},
      *     summary="Get all articles",
+     *     security={{"bearerAuth":{}}},
      *     @OA\Response(
      *         response=200,
      *         description="Get list of articles",
      *         @OA\JsonContent(
      *              type="array",
-     *              @OA\Items(ref="#/components/schemas/ArticleResource")
-     *         )
-     *     )
-     * )
+     *              @OA\Items(ref="#/components/schemas/ArticleResource"),
+     *         ),
+     *     ),
+     * ),
      */
     public function index(): AnonymousResourceCollection
     {
@@ -54,20 +57,21 @@ class ArticleController extends Controller
      *     path="/api/v1/articles/{id}",
      *     tags={"Articles"},
      *     summary="Get one Article",
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         description="Article's ID",
-     *         @OA\Schema(type="integer")
+     *         @OA\Schema(type="integer"),
      *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Get one Article by it's ID",
-     *         @OA\JsonContent(ref="#/components/schemas/ArticleResource")
+     *         @OA\JsonContent(ref="#/components/schemas/ArticleResource"),
      *     ),
-     *     @OA\Response(response=404, description="Article not found")
-     * )
+     *     @OA\Response(response=404, description="Article not found"),
+     * ),
      */
     public function show($id): ArticleResource|JsonResponse
     {
@@ -84,17 +88,18 @@ class ArticleController extends Controller
      *     path="/api/v1/articles",
      *     tags={"Articles"},
      *     summary="Create new Article",
+     *     security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/StoreArticleRequest")
+     *         @OA\JsonContent(ref="#/components/schemas/StoreArticleRequest"),
      *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Get one Article by it's ID",
-     *         @OA\JsonContent(ref="#/components/schemas/ArticleResource")
+     *         @OA\JsonContent(ref="#/components/schemas/ArticleResource"),
      *     ),
-     *     @OA\Response(response=404, description="Article not found")
-     * )
+     *     @OA\Response(response=404, description="Article not found"),
+     * ),
      */
     public function store(StoreArticleRequest $request): ArticleResource
     {
@@ -108,24 +113,25 @@ class ArticleController extends Controller
      *     path="/api/v1/articles/{id}",
      *     tags={"Articles"},
      *     summary="Update existing Article",
+     *     security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/UpdateArticleRequest")
+     *         @OA\JsonContent(ref="#/components/schemas/UpdateArticleRequest"),
      *     ),
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         description="Article's ID",
-     *         @OA\Schema(type="integer")
+     *         @OA\Schema(type="integer"),
      *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Updated chosen Article with given data",
-     *         @OA\JsonContent(ref="#/components/schemas/ArticleResource")
+     *         @OA\JsonContent(ref="#/components/schemas/ArticleResource"),
      *     ),
-     *     @OA\Response(response=404, description="Article not updated")
-     * )
+     *     @OA\Response(response=404, description="Article not updated"),
+     * ),
      */
     public function update(UpdateArticleRequest $request, int $id): ArticleResource|JsonResponse
     {
@@ -143,19 +149,20 @@ class ArticleController extends Controller
      *     path="/api/v1/articles/{id}",
      *     tags={"Articles"},
      *     summary="Delete chosen Article",
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         description="Article's ID",
-     *         @OA\Schema(type="integer")
+     *         @OA\Schema(type="integer"),
      *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Delete Article by it's ID",
      *     ),
-     *     @OA\Response(response=404, description="Article not found")
-     * )
+     *     @OA\Response(response=404, description="Article not found"),
+     * ),
      */
     public function destroy(int $id): JsonResponse
     {

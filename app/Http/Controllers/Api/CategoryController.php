@@ -11,8 +11,10 @@ use OpenApi\Annotations as OA;
 /**
  * @OA\Tag(
  *     name="Categories",
- *     description="Operations with Categories"
- * )
+ *     description="Operations with Categories",
+ * ),
+ *
+ * @OA\SecurityRequirement(name="bearerAuth"),
  */
 class CategoryController extends Controller
 {
@@ -25,15 +27,16 @@ class CategoryController extends Controller
      *     path="/api/v1/categories",
      *     tags={"Categories"},
      *     summary="Get all categories",
+     *     security={{"bearerAuth":{}}},
      *     @OA\Response(
      *         response=200,
      *         description="Get list of categories",
      *         @OA\JsonContent(
      *              type="array",
-     *              @OA\Items(ref="#/components/schemas/CategoryResource")
-     *         )
-     *     )
-     * )
+     *              @OA\Items(ref="#/components/schemas/CategoryResource"),
+     *         ),
+     *     ),
+     * ),
      */
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
@@ -48,20 +51,21 @@ class CategoryController extends Controller
      *     path="/api/v1/categories/{id}",
      *     tags={"Categories"},
      *     summary="Get one Category",
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         description="Category's ID",
-     *         @OA\Schema(type="integer")
+     *         @OA\Schema(type="integer"),
      *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Get one Category by it's ID",
-     *         @OA\JsonContent(ref="#/components/schemas/CategoryResource")
+     *         @OA\JsonContent(ref="#/components/schemas/CategoryResource"),
      *     ),
-     *     @OA\Response(response=404, description="Category not found")
-     * )
+     *     @OA\Response(response=404, description="Category not found"),
+     * ),
      */
     public function show($id): CategoryResource|JsonResponse
     {
