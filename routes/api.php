@@ -12,6 +12,6 @@ Route::prefix('v1')
     Route::apiResource('articles', ArticleController::class);
 
     // Categories
-    Route::get('categories', [CategoryController::class, 'index']);
-    Route::get('categories/{id}', [CategoryController::class, 'show']);
+    Route::get('categories', [CategoryController::class, 'index'])->name('api.categories.index');
+    Route::get('categories/{id}', [CategoryController::class, 'show'])->name('api.categories.show');
 });

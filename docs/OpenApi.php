@@ -7,7 +7,7 @@ use OpenApi\Annotations as OA;
 /**
  * @OA\Info(
  *     title="Test Laravel REST API",
- *     version="0.5.0",
+ *     version="0.6.0",
  *     description="Це тестовий проєкт REST API на Laravel. Документація реалізована за допомогою пакета darkaonline/l5-swagger.",
  * ),
  *
