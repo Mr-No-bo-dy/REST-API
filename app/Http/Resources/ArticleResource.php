@@ -22,9 +22,9 @@ class ArticleResource extends JsonResource
      *          property="category",
      *          type="object",
      *          @OA\Property(property="id", type="integer", example=1),
-     *          @OA\Property(property="title", type="string", example="Category name"),
+     *          @OA\Property(property="name", type="string", example="Category name"),
      *     ),
-     *     @OA\Property(property="published_at", type="string", format="date", example="2025-05-19"),
+     *     @OA\Property(property="published_at", type="string", format="date", example="2025-05-19 00:00:00"),
      * ),
      */
     public function toArray(Request $request): array

@@ -94,7 +94,7 @@ class ArticleController extends Controller
      *         @OA\JsonContent(ref="#/components/schemas/StoreArticleRequest"),
      *     ),
      *     @OA\Response(
-     *         response=200,
+     *         response=201,
      *         description="Get one Article by it's ID",
      *         @OA\JsonContent(ref="#/components/schemas/ArticleResource"),
      *     ),

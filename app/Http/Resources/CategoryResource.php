@@ -46,7 +46,6 @@ class CategoryResource extends JsonResource
      *               @OA\Property(property="author", type="string", example="Olaksandr"),
      *           ),
      *      ),
-     *     @OA\Property(property="published_at", type="string", format="date", example="2025-05-19"),
      * ),
      */
     public function toArray(Request $request): array
