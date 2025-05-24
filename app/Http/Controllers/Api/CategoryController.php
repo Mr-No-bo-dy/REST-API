@@ -32,10 +32,7 @@ class CategoryController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Get list of categories",
-     *         @OA\JsonContent(
-     *              type="array",
-     *              @OA\Items(ref="#/components/schemas/CategoryResource"),
-     *         ),
+     *         @OA\JsonContent(ref="#/components/schemas/CategoryResource"),
      *     ),
      * ),
      */

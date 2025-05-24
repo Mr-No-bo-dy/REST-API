@@ -3,7 +3,7 @@
     "info": {
         "title": "Test Laravel REST API",
         "description": "Це тестовий проєкт REST API на Laravel. Документація реалізована за допомогою пакета darkaonline/l5-swagger.",
-        "version": "0.5.0"
+        "version": "0.6.1"
     },
     "servers": [
         {
@@ -25,10 +25,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/ArticleResource"
-                                    }
+                                    "$ref": "#/components/schemas/ArticleResource"
                                 }
                             }
                         }
@@ -52,6 +49,44 @@
                         "application/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/StoreArticleRequest"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "description",
+                                    "category_id",
+                                    "author",
+                                    "published_at"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Breaking News Title"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "maxLength": 1024,
+                                        "example": "This is the content of the news."
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "author": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "John Doe"
+                                    },
+                                    "published_at": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-05-19"
+                                    }
+                                },
+                                "type": "object"
                             }
                         }
                     }
@@ -141,6 +176,37 @@
                             "schema": {
                                 "$ref": "#/components/schemas/UpdateArticleRequest"
                             }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Breaking News Title"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "maxLength": 1024,
+                                        "example": "This is the content of the news."
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "author": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "John Doe"
+                                    },
+                                    "published_at": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-05-19"
+                                    }
+                                },
+                                "type": "object"
+                            }
                         }
                     }
                 },
@@ -184,7 +250,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Delete Article by it's ID"
+                        "description": "Article has been deleted"
                     },
                     "404": {
                         "description": "Article not found"
@@ -210,10 +276,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/CategoryResource"
-                                    }
+                                    "$ref": "#/components/schemas/CategoryResource"
                                 }
                             }
                         }
@@ -379,7 +442,6 @@
                 "title": "Category Resource",
                 "properties": {
                     "name": {
-                        "description": "Tip:\nindex array -> array\nassociative array -> object",
                         "type": "string",
                         "example": "Technology"
                     },
@@ -438,6 +500,48 @@
                                 }
                             },
                             "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "CategoryResponse": {
+                "description": "Optional Schema-wrapper for examples for CategoryController's object",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/CategoryResponse"
+                    }
+                },
+                "type": "object"
+            },
+            "CategoryCollectionResponse": {
+                "description": "Optional Schema-wrapper for examples for CategoryController's collection",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CategoryResponse"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "ArticleResponse": {
+                "description": "Optional Schema-wrapper for examples for ArticleController's object",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/ArticleResource"
+                    }
+                },
+                "type": "object"
+            },
+            "ArticleCollectionResponse": {
+                "description": "Optional Schema-wrapper for examples for ArticleController's collection",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ArticleResource"
                         }
                     }
                 },

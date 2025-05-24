@@ -10,10 +10,6 @@ use OpenApi\Annotations as OA;
 class CategoryResource extends JsonResource
 {
     /**
-     * Tip:
-     * index array -> array
-     * associative array -> object
-     *
      * @OA\Schema(
      *     schema="CategoryResource",
      *     type="object",

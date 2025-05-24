@@ -35,10 +35,7 @@ class ArticleController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Get list of articles",
-     *         @OA\JsonContent(
-     *              type="array",
-     *              @OA\Items(ref="#/components/schemas/ArticleResource"),
-     *         ),
+     *         @OA\JsonContent(ref="#/components/schemas/ArticleResource"),
      *     ),
      * ),
      */
@@ -91,7 +88,21 @@ class ArticleController extends Controller
      *     security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/StoreArticleRequest"),
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(ref="#/components/schemas/StoreArticleRequest"),
+     *         ),
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 required={"title", "description", "category_id", "author", "published_at"},
+     *                 @OA\Property(property="title",        type="string", maxLength=255, example="Breaking News Title"),
+     *                 @OA\Property(property="description",  type="string", maxLength=1024, example="This is the content of the news."),
+     *                 @OA\Property(property="category_id",  type="integer", example=1),
+     *                 @OA\Property(property="author",       type="string", maxLength=255, example="John Doe"),
+     *                 @OA\Property(property="published_at", type="string", format="date", example="2025-05-19"),
+     *             ),
+     *         ),
      *     ),
      *     @OA\Response(
      *         response=201,
@@ -116,7 +127,20 @@ class ArticleController extends Controller
      *     security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/UpdateArticleRequest"),
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *              @OA\Schema(ref="#/components/schemas/UpdateArticleRequest"),
+     *          ),
+     *          @OA\MediaType(
+     *              mediaType="application/x-www-form-urlencoded",
+     *              @OA\Schema(
+     *                  @OA\Property(property="title",        type="string", maxLength=255, example="Breaking News Title"),
+     *                  @OA\Property(property="description",  type="string", maxLength=1024, example="This is the content of the news."),
+     *                  @OA\Property(property="category_id",  type="integer", example=1),
+     *                  @OA\Property(property="author",       type="string", maxLength=255, example="John Doe"),
+     *                  @OA\Property(property="published_at", type="string", format="date", example="2025-05-19"),
+     *              ),
+     *          ),
      *     ),
      *     @OA\Parameter(
      *         name="id",
@@ -159,7 +183,7 @@ class ArticleController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="Delete Article by it's ID",
+     *         description="Article has been deleted",
      *     ),
      *     @OA\Response(response=404, description="Article not found"),
      * ),
@@ -169,7 +193,7 @@ class ArticleController extends Controller
         $article = $this->repository->destroy($id);
 
         return $article
-            ? response()->json(['message' => 'Article deleted'])
+            ? response()->json(['message' => 'Article has been deleted'])
             : response()->json(['error' => 'Article not found'], 404);
     }
 }
