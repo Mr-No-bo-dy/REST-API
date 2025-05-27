@@ -47,56 +47,13 @@ class CategoryResource extends JsonResource
     public function toArray(Request $request): array
     {
         /** @var Category $this */
-        // If needed even empty keys:
         return [
             'name' => $this->name,
             'sort_order' => $this->sort_order,
             'show_in_main_menu' => (bool)$this->show_in_main_menu,
-            'parent' => $this->parent_id
-                ? [
-                    'id' => $this->parent->id,
-                    'name' => $this->parent->name,
-                ]
-                : null,
-            'children' => $this->children->isNotEmpty()
-                ? $this->children->map(fn($article) => [
-                        'id' => $article->id,
-                        'name' => $article->name,
-                    ])->toArray()
-                : [],
-            'articles' => $this->articles->isNotEmpty()
-                ? $this->articles->map(fn($article) => [
-                        'id' => $article->id,
-                        'title' => $article->title,
-                        'author' => $article->author,
-                    ])->toArray()
-                : [],
+            'parent' => new CategoryResource($this->whenLoaded('parent')),
+            'children' => CategoryResource::collection($this->whenLoaded('children')),
+            'articles' => ArticleResource::collection($this->whenLoaded('articles')),
         ];
-
-        // If empty keys not needed:
-//        return [
-//            'name' => $this->name,
-//            'sort_order' => $this->sort_order,
-//            'show_in_main_menu' => (bool)$this->show_in_main_menu,
-//            ...($this->parent_id ? [
-//                'parent' => [
-//                    'id' => $this->parent->id,
-//                    'name' => $this->parent->name,
-//                ],
-//            ] : []),
-//            ...($this->children->isNotEmpty() ? [
-//                'children' => $this->children->map(fn($article) => [
-//                    'id' => $article->id,
-//                    'name' => $article->name,
-//                ])->toArray(),
-//            ] : []),
-//            ...($this->articles->isNotEmpty() ? [
-//                'articles' => $this->articles->map(fn($article) => [
-//                    'id' => $article->id,
-//                    'title' => $article->title,
-//                    'author' => $article->author,
-//                ])->toArray(),
-//            ] : []),
-//        ];
     }
 }

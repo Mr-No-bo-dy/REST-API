@@ -3,7 +3,7 @@
     "info": {
         "title": "Test Laravel REST API",
         "description": "Це тестовий проєкт REST API на Laravel. Документація реалізована за допомогою пакета darkaonline/l5-swagger.",
-        "version": "0.6.1"
+        "version": "0.7.1"
     },
     "servers": [
         {

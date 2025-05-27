@@ -35,10 +35,7 @@ class ArticleResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'author' => $this->author,
-            'category' => [
-                'id' => $this->category->id,
-                'name' => $this->category->name,
-            ],
+            'category' => new CategoryResource($this->whenLoaded('category')),
             'published_at' => optional($this->published_at)->toDateTimeString(),
         ];
     }
