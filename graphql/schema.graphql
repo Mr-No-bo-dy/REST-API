@@ -1,0 +1,84 @@
+# --------------------------------------------------
+# RESOURCES
+# --------------------------------------------------
+type Category {
+    id: ID!
+    name: String!
+    sort_order: Int!
+    show_in_main_menu: Boolean!
+    parent_id: Int
+    parent: Category @belongsTo
+    children: [Category!]! @hasMany
+    articles: [Article!]! @hasMany
+}
+
+type Article {
+    id: ID!
+    title: String!
+    description: String!
+    author: String!
+    published_at: String!
+    category_id: Int!
+    category: Category! @belongsTo
+}
+
+# --------------------------------------------------
+# Query Types
+# --------------------------------------------------
+input CategoryOrderingInput {
+    column: CategoryOrderingColumn!
+    order: SortOrder = ASC
+}
+enum CategoryOrderingColumn {
+    id
+    name
+}
+enum SortOrder {
+    ASC
+    DESC
+}
+
+type Query {
+    # Category
+    categories: [Category!]! @all
+
+    categoriesSorted(
+        orderBy: CategoryOrderingInput @orderBy
+    ): [Category!] @all
+
+    category(id: ID! @whereKey): Category @find
+
+    # Article
+    articles: [Article!]! @all
+
+    articlesPaginated(
+        first: Int
+        page: Int
+    ): [Article!]! @paginate
+
+    article(id: ID! @whereKey): Article @find
+}
+
+# --------------------------------------------------
+# Mutations
+# --------------------------------------------------
+type Mutation {
+    createArticle(
+        title: String!,
+        description: String!,
+        category_id: Int!,
+        author: String!,
+        published_at: String!
+    ): Article @create
+
+    updateArticle(
+        id: ID!,
+        title: String,
+        description: String,
+        category_id: Int,
+        author: String,
+        published_at: String
+    ): Article @update
+
+    deleteArticle(id: ID! @whereKey): Boolean @delete(model: "App\\Models\\Category")
+}

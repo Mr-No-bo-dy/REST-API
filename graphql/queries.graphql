@@ -1,0 +1,210 @@
+# --------------------------------------------------
+# Calling Queries
+# --------------------------------------------------
+
+# Read all categories
+query GetAllCategories {
+    categories {
+        id
+        name
+        sort_order
+        parent_id
+        show_in_main_menu
+        children {
+            id
+            name
+        }
+    }
+}
+
+# Sort
+query GetCategoriesSorted {
+    categoriesSorted(
+         orderBy: {
+             column: name,
+             order: ASC
+         }
+    ) {
+         id,
+         name
+    }
+}
+
+# Read one category by ID
+query GetCategoryById {
+    category(id: 1) {
+        id
+        name
+        sort_order
+        parent_id
+        parent {
+            id
+            name
+        }
+        children {
+            id
+            name
+        }
+        articles {
+            id
+            title
+        }
+    }
+}
+
+# Read all articles
+query GetAllArticles {
+    articles {
+        id
+        title
+        description
+        author
+        published_at
+        category {
+            id
+            name
+        }
+    }
+}
+
+# Articles paginated
+query articlePaginated {
+    articlesPaginated(
+        first: 2
+        page: 1
+    ) {
+        data {
+            id
+            title
+        }
+        paginatorInfo {
+            currentPage
+            lastPage
+            total
+        }
+    }
+}
+
+# Read one article by ID
+query GetArticleById {
+    article(id: 3) {
+        id
+        title
+        description
+        author
+        published_at
+        category {
+            id
+            name
+        }
+    }
+}
+
+# Create new article (for tests only)
+mutation CreateArticleTest {
+    createArticle(
+        title: "Introducing GraphQL in Laravel"
+        description: "Step-by-step tutorial..."
+        author: "Oleksandr"
+        published_at: "2025-05-27T14:00:00Z"
+        category_id: 3
+    ) {
+        id
+        title
+        published_at
+        category {
+            id
+            name
+        }
+    }
+}
+
+# Create new article (for production)
+mutation CreateArticle(
+    $title: String!,
+    $description: String!,
+    $category_id: Int!,
+    $author: String!,
+    $published_at: String!
+) {
+    createArticle(
+        title: $title
+        description: $description
+        author: $author
+        published_at: $published_at
+        category_id: $category_id
+    ) {
+        id
+        title
+        published_at
+        category {
+            id
+            name
+        }
+    }
+}
+# Create Query variables
+#{
+#    "title": "Introducing GraphQL in Laravel",
+#    "description": "Step-by-step tutorial...",
+#    "author": "Oleksandr",
+#    "published_at": "2025-05-27T14:00:00Z",
+#    "category_id": 3
+#}
+
+
+# Update existing article (for tests only)
+mutation UpdateArticleTest {
+    updateArticle(
+        id: 19
+        title: "Updated GraphQL Guide"
+        description: "Revised content..."
+    ) {
+        id
+        title
+        description
+        published_at
+    }
+}
+
+# Update2 existing article (for production)
+mutation UpdateArticle(
+    $id: ID!,
+    $title: String,
+    $description: String,
+) {
+    updateArticle(
+        id: $id
+        title: $title
+        description: $description
+    ) {
+        id
+        title
+        description
+        published_at
+    }
+}
+# Update Query variables
+#{
+#    "id": 21,
+#     "title": "Updated GraphQL Guide",
+#     "description": "Revised content..."
+#}
+
+# Delete article
+mutation DeleteArticleTest {
+    deleteArticle(id: 19)
+}
+
+mutation DeleteArticle(
+    $id: ID!
+) {
+    deleteArticle(
+        id: $id
+    )
+}
+
+# Delete Query variables
+#{
+#    "id": 21
+#}
