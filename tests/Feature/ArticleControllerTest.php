@@ -87,8 +87,9 @@ class ArticleControllerTest extends TestCase
 					'description'  => $article->description,
 					'author'       => $article->author,
 					'category'     => [
-						'id'   => $category->id,
-						'name' => $category->name,
+                        'name' => $category->name,
+                        'sort_order' => $category->sort_order,
+                        'show_in_main_menu' => $category->show_in_main_menu,
 					],
 					'published_at' => $article->published_at->toDateTimeString(),
 				],
@@ -135,8 +136,9 @@ class ArticleControllerTest extends TestCase
 					'title'       => 'New title',
 					'author'      => 'Oleksandr',
 					'category'    => [
-						'id'   => $category->id,
 						'name' => $category->name,
+                        'sort_order' => $category->sort_order,
+                        'show_in_main_menu' => $category->show_in_main_menu,
 					],
 					'published_at' => $data['published_at'],
 				],
@@ -186,8 +188,9 @@ class ArticleControllerTest extends TestCase
 					'title' => 'Updated',
 					'author'=> 'Bob',
 					'category' => [
-						'id'   => $category2->id,
-						'name' => $category2->name,
+                        'name' => $category2->name,
+                        'sort_order' => $category2->sort_order,
+                        'show_in_main_menu' => $category2->show_in_main_menu,
 					],
 					'published_at' => $data['published_at'],
 				],
@@ -228,7 +231,7 @@ class ArticleControllerTest extends TestCase
 		);
 
 		$response->assertStatus(200)
-			->assertJson(['message' => 'Article deleted']);
+			->assertJson(['message' => 'Article has been deleted']);
 
 		$this->assertDatabaseMissing('articles', ['id' => $article->id]);
 	}

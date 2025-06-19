@@ -85,8 +85,9 @@ class CategoryControllerTest extends TestCase
                     'sort_order' => $category->sort_order,
                     'show_in_main_menu' => $category->show_in_main_menu,
                     'parent' => [
-                        'id' => $category->parent->id,
                         'name' => $category->parent->name,
+                        'sort_order' => $category->parent->sort_order,
+                        'show_in_main_menu' => $category->parent->show_in_main_menu,
                     ],
                     'children' => [],
                     'articles' => [
@@ -94,6 +95,8 @@ class CategoryControllerTest extends TestCase
                             'id' => $article->id,
                             'title' => $article->title,
                             'author' => $article->author,
+                            'description' => $article->description,
+                            'published_at' => $article->published_at,
                         ],
                     ],
                 ],

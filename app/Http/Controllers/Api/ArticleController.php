@@ -116,6 +116,8 @@ class ArticleController extends Controller
     {
         $article = $this->repository->store($request->validated());
 
+        $article->load('category'); // Eager-load the category
+
         return new ArticleResource($article);
     }
 
@@ -163,9 +165,12 @@ class ArticleController extends Controller
         If POST should be ok */
         $article = $this->repository->update($request->validated(), $id);
 
-        return $article
-            ? new ArticleResource($article)
-            : response()->json(['error' => 'Article not updated'], 404);
+        if ($article) {
+            $article->load('category');
+            return new ArticleResource($article);
+        }
+
+        return response()->json(['error' => 'Article not updated'], 404);
     }
 
     /**
