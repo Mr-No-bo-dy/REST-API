@@ -1,66 +1,91 @@
 # Articles Catalog API (Laravel)
 
-Цей проєкт є RESTfull API для управління каталогом статтей, розроблений з використанням Laravel. 
-API дозволяє створювати, переглядати, оновлювати та видаляти статті. 
-Реалізовано принципи чистої архітектури: контролери, сервіси, репозиторії, валідація та API-ресурси.
+This project is a RESTful API for managing an article catalogue, developed using Laravel.
+The API allows you to create, view, update, and delete articles.
+Clean architecture principles have been implemented: controllers, services, repositories, validation, and API resources.
 
-## Можливості
-- CRUD операції для статтей
-- Валідація вхідних запитів
-- Структуровані JSON-відповіді через API Resources
-- Підтримка пагінації та сортування
-- Репозиторії для роботи з базою даних
-- Сервіси для бізнес-логіки
-- Юніт- та інтеграційні тести
-- Готовність до розширення (коментарі, авторизація, тощо)
+## Features
+- CRUD operations for articles
+- Validation of incoming requests
+- Structured JSON responses via API Resources
+- Support for pagination and sorting
+- Repositories for working with the database
+- Services for business logic
+- Unit- and feature Tests
+- Open for expansion (comments, authorisation, etc.)
 
-## Технології
-- Laravel 10+
-- PHP 8.1+
+## Technologies
+- Laravel 11+
+- PHP 8.2+
 - PHPUnit
 - SQLite
 
-## Налаштування .env
-```
-DB_CONNECTION=sqlite
-DB_DATABASE=database/database.sqlite
-```
+## Installation
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/Mr-No-bo-dy/REST-API.git
+    ```
 
-## Встановлення
-```
-git clone https://github.com/Mr-No-bo-dy/REST-API.git
+2. Navigate to project's directory:
+    ```bash
+    cd REST-API
+    ```
 
-cd REST-API
+3.  Install dependencies:
+    ```bash
+    composer install
+    npm install
+    ```
 
-composer install
+4.  Configure your environment:
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
 
-cp .env.example .env
+5.  Add your API access token in the `.env` file:
+    ```
+    API_ACCESS_TOKEN=your_token
+    ```
 
-php artisan key:generate
+6. Create a database
+* Linux / MacOS:
+    ```bash
+    touch database/database.sqlite
+    ```
+* Windows:
+    ```bash
+    New-Item -ItemType File -Path database/database.sqlite
+    ```
 
-touch database/database.sqlite (Linux/MacOS)
-New-Item -ItemType File -Path database/database.sqlite (Windows)
+7. Start database migrations:
+    ```bash
+    php artisan migrate
+    ```
 
-php artisan migrate
+8. [Optional] Create test items
+    ```bash
+    php artisan db:seed
+    ```
 
-php artisan serve
+9. Start the development server:
+    ```bash
+    php artisan serve
+    ```
 
-```
+## API Endpoints
+| Method      | Endpoint             | Description         |
+|-------------|----------------------|---------------------|
+| GET         | /api/categories      | Get all categories  |
+| GET         | /api/categories/{id} | Get one category    |
+| GET         | /api/articles        | Get all articles    |
+| GET         | /api/articles/{id}   | Get one article     |
+| POST        | /api/articles        | Create an article   |
+| PUT / PATCH | /api/articles/{id}   | Update an article   |
+| DELETE      | /api/articles/{id}   | Delete an article   |
 
 
-## API Endpoint-и
-| Метод       | Endpoint             | Опис                    |
-|-------------|----------------------|-------------------------|
-| GET         | /api/categories      | Отримати всі категорії  |
-| GET         | /api/categories/{id} | Отримати одну категорію |
-| GET         | /api/articles        | Отримати всі статті     |
-| GET         | /api/articles/{id}   | Отримати одну статтю    |
-| POST        | /api/articles        | Створити статтю         |
-| PUT / PATCH | /api/articles/{id}   | Оновити статтю          |
-| DELETE      | /api/articles/{id}   | Видалити статтю         |
-
-
-## Приклад запиту (POST /api/articles)
+## Example request (POST /api/articles)
 ```
 {
   "title": "Laravel 11 Released",
@@ -71,12 +96,7 @@ php artisan serve
 }
 ```
 
-## Створення тестових елементів
-```
-php artisan db:seed
-```
-
-## Tестування
+## Testing
 ```
 php artisan test
 ```
@@ -86,12 +106,10 @@ php artisan test
 composer fix
 ```
 
-## Документація API:
-Linux / MacOS:
-```
-http://localhost:8000/api/documentation
-```
-Windows:
+## API documentation:
 ```
 http://127.0.0.1:8000/api/documentation
 ```
+
+## License
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
